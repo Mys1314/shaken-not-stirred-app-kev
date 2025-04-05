@@ -8,6 +8,7 @@ import { MyBarProvider } from "@/hooks/useMyBar";
 import HomePage from "./pages/HomePage";
 import CocktailDetailPage from "./pages/CocktailDetailPage";
 import MyBarPage from "./pages/MyBarPage";
+import IngredientsPage from "./pages/IngredientsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
             <Route path="/" element={<HomePage />} />
             <Route path="/cocktail/:id" element={<CocktailDetailPage />} />
             <Route path="/my-bar" element={<MyBarPage />} />
+            <Route path="/ingredients" element={<IngredientsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
