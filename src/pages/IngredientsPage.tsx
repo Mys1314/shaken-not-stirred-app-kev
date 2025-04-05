@@ -9,7 +9,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from '@/components/ui/badge';
 import CocktailCard from '@/components/CocktailCard';
-import { Cocktail as CocktailIcon, Search } from 'lucide-react';
+import { GlassWine, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 const IngredientsPage = () => {
@@ -135,7 +135,7 @@ const IngredientsPage = () => {
                               >
                                 <span>{ingredient}</span>
                                 {selectedIngredients.includes(ingredient) && (
-                                  <CocktailIcon size={16} />
+                                  <GlassWine size={16} />
                                 )}
                               </div>
                             ))}
@@ -168,7 +168,7 @@ const IngredientsPage = () => {
             
             {selectedIngredients.length === 0 ? (
               <div className="bg-muted/30 rounded-lg flex flex-col items-center justify-center p-10 text-center">
-                <CocktailIcon size={48} className="text-muted-foreground mb-4" />
+                <GlassWine size={48} className="text-muted-foreground mb-4" />
                 <h3 className="text-xl font-medium mb-2">Select ingredients to get started</h3>
                 <p className="text-muted-foreground max-w-md">
                   Choose ingredients from the left to see cocktails you can make with them
@@ -194,7 +194,7 @@ const IngredientsPage = () => {
               </div>
             ) : (
               <div className="bg-muted/30 rounded-lg flex flex-col items-center justify-center p-10 text-center">
-                <CocktailIcon size={48} className="text-muted-foreground mb-4" />
+                <GlassWine size={48} className="text-muted-foreground mb-4" />
                 <h3 className="text-xl font-medium mb-2">No cocktails found</h3>
                 <p className="text-muted-foreground max-w-md">
                   Try selecting different ingredients or fewer ingredients to find matches
