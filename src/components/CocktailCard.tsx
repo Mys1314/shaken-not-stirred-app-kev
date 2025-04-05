@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Cocktail } from '@/services/cocktailApi';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { Info, CocktailIcon } from 'lucide-react';
+import { Info, GlassWater } from 'lucide-react';
 
 interface CocktailCardProps {
   cocktail: Cocktail;
@@ -25,7 +25,7 @@ const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
         <h3 className="text-lg font-semibold text-white">{cocktail.name}</h3>
         <div className="flex items-center justify-between">
           <div className="text-sm text-white/80 flex items-center">
-            <CocktailIcon size={14} className="mr-1" />
+            <GlassWater size={14} className="mr-1" />
             {cocktail.ingredients.length} ingredients
           </div>
           

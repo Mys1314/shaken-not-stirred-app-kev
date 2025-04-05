@@ -22,7 +22,7 @@ import {
   Search, 
   Home, 
   X, 
-  Cocktail as CocktailIcon, 
+  GlassWater, 
   Menu,
   Check,
   ListChecks,
@@ -31,13 +31,30 @@ import {
 
 interface NavigationProps {
   showSearch?: boolean;
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
 }
 
-const Navigation: React.FC<NavigationProps> = ({ showSearch = true }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+const Navigation: React.FC<NavigationProps> = ({ 
+  showSearch = true, 
+  searchQuery: externalSearchQuery, 
+  onSearchChange 
+}) => {
+  const [internalSearchQuery, setInternalSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  
+  // Use either the external search query (if provided) or the internal state
+  const searchQuery = externalSearchQuery !== undefined ? externalSearchQuery : internalSearchQuery;
+
+  const handleSearchQueryChange = (query: string) => {
+    if (onSearchChange) {
+      onSearchChange(query);
+    } else {
+      setInternalSearchQuery(query);
+    }
+  };
 
   const { data: searchResults, isLoading } = useQuery({
     queryKey: ['search', searchQuery],
@@ -47,7 +64,11 @@ const Navigation: React.FC<NavigationProps> = ({ showSearch = true }) => {
 
   const handleSearchSelect = (cocktailId: string) => {
     setIsSearchOpen(false);
-    setSearchQuery('');
+    if (onSearchChange) {
+      onSearchChange('');
+    } else {
+      setInternalSearchQuery('');
+    }
     navigate(`/cocktail/${cocktailId}`);
   };
 
@@ -56,7 +77,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSearch = true }) => {
       <div className="container flex h-16 items-center px-4">
         <div className="flex items-center">
           <Link to="/" className="mr-6 flex items-center space-x-2">
-            <CocktailIcon className="h-6 w-6" />
+            <GlassWater className="h-6 w-6" />
             <span className="font-bold">Cocktail Tracker</span>
           </Link>
 
@@ -98,7 +119,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSearch = true }) => {
                     <CommandInput 
                       placeholder="Search for cocktails..." 
                       value={searchQuery}
-                      onValueChange={setSearchQuery}
+                      onValueChange={handleSearchQueryChange}
                       className="flex h-11 flex-1 bg-transparent px-3 py-3 outline-none"
                     />
                     {searchQuery && (
@@ -106,7 +127,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSearch = true }) => {
                         variant="ghost" 
                         size="sm" 
                         className="h-7 w-7 p-0" 
-                        onClick={() => setSearchQuery('')}
+                        onClick={() => handleSearchQueryChange('')}
                       >
                         <X className="h-4 w-4" />
                         <span className="sr-only">Clear search</span>
@@ -129,7 +150,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSearch = true }) => {
                                 onSelect={() => handleSearchSelect(cocktail.id)}
                                 className="cursor-pointer"
                               >
-                                <CocktailIcon className="mr-2 h-4 w-4" />
+                                <GlassWater className="mr-2 h-4 w-4" />
                                 <span>{cocktail.name}</span>
                               </CommandItem>
                             ))
@@ -190,7 +211,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSearch = true }) => {
                       placeholder="Search cocktails..."
                       className="w-full pl-8 bg-background border border-input rounded-md h-9 px-3 py-2 text-sm"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => handleSearchQueryChange(e.target.value)}
                       onFocus={() => {
                         setIsSearchOpen(true);
                         setIsMobileMenuOpen(false);
@@ -210,7 +231,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSearch = true }) => {
           <CommandInput 
             placeholder="Search for cocktails..." 
             value={searchQuery}
-            onValueChange={setSearchQuery}
+            onValueChange={handleSearchQueryChange}
           />
         </div>
         <CommandList>
@@ -227,7 +248,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSearch = true }) => {
                   onSelect={() => handleSearchSelect(cocktail.id)}
                   className="cursor-pointer"
                 >
-                  <CocktailIcon className="mr-2 h-4 w-4" />
+                  <GlassWater className="mr-2 h-4 w-4" />
                   <span>{cocktail.name}</span>
                 </CommandItem>
               ))
