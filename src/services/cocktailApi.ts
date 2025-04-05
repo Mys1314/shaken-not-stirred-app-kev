@@ -1,8 +1,10 @@
-
 // Types for our cocktail data
 export interface Ingredient {
   name: string;
   measure?: string;
+  flavorProfile?: string;
+  origin?: string;
+  role?: string;
 }
 
 export interface Cocktail {
@@ -27,11 +29,41 @@ const cocktailsData: Cocktail[] = [
     glass: 'Highball glass',
     instructions: 'Muddle mint leaves with sugar and lime juice. Add a splash of soda water and fill the glass with cracked ice. Pour the rum and top with soda water. Garnish with mint leaves and a lime wedge.',
     ingredients: [
-      { name: 'White rum', measure: '2 oz' },
-      { name: 'Sugar', measure: '2 tsp' },
-      { name: 'Lime juice', measure: '1 oz' },
-      { name: 'Mint', measure: '6 leaves' },
-      { name: 'Soda water', measure: 'To fill' },
+      { 
+        name: 'White rum', 
+        measure: '2 oz',
+        flavorProfile: 'Sweet, mild with vanilla notes',
+        origin: 'Distilled from sugarcane molasses or juice, originating in the Caribbean',
+        role: 'Base spirit that provides the alcoholic foundation'
+      },
+      { 
+        name: 'Sugar', 
+        measure: '2 tsp',
+        flavorProfile: 'Sweet',
+        origin: 'Refined from sugarcane or sugar beets',
+        role: 'Sweetener that balances the acidity of lime juice'
+      },
+      { 
+        name: 'Lime juice', 
+        measure: '1 oz',
+        flavorProfile: 'Sour, acidic, slightly sweet',
+        origin: 'Extracted from lime fruits, native to Southeast Asia',
+        role: 'Provides acidity and brightness to balance the sweetness'
+      },
+      { 
+        name: 'Mint', 
+        measure: '6 leaves',
+        flavorProfile: 'Fresh, cool, slightly sweet',
+        origin: 'Aromatic herb originally from the Mediterranean',
+        role: 'Aromatic component that gives the mojito its distinctive fresh character'
+      },
+      { 
+        name: 'Soda water', 
+        measure: 'To fill',
+        flavorProfile: 'Neutral, effervescent',
+        origin: 'Carbonated water with added minerals',
+        role: 'Dilutes and adds effervescence to the cocktail'
+      },
     ],
   },
   {
@@ -43,12 +75,48 @@ const cocktailsData: Cocktail[] = [
     glass: 'Old-fashioned glass',
     instructions: 'Place sugar cube in old-fashioned glass and saturate with bitters, add a dash of plain water. Muddle until dissolved. Fill the glass with ice cubes and add whiskey. Garnish with orange slice and a cherry.',
     ingredients: [
-      { name: 'Bourbon', measure: '2 oz' },
-      { name: 'Angostura bitters', measure: '2 dashes' },
-      { name: 'Sugar cube', measure: '1' },
-      { name: 'Water', measure: 'dash' },
-      { name: 'Orange', measure: '1 slice' },
-      { name: 'Maraschino cherry', measure: '1' },
+      { 
+        name: 'Bourbon', 
+        measure: '2 oz',
+        flavorProfile: 'Rich, sweet, with notes of vanilla, oak, and caramel',
+        origin: 'American whiskey made primarily from corn, originating in Kentucky',
+        role: 'Primary spirit providing body and complex flavors'
+      },
+      { 
+        name: 'Angostura bitters', 
+        measure: '2 dashes',
+        flavorProfile: 'Spicy, herbal, with notes of clove and cinnamon',
+        origin: 'Created in Venezuela as a medicinal tincture in the 19th century',
+        role: 'Adds complexity, depth, and balances sweetness'
+      },
+      { 
+        name: 'Sugar cube', 
+        measure: '1',
+        flavorProfile: 'Sweet',
+        origin: 'Refined from sugarcane or sugar beets',
+        role: 'Adds sweetness to balance the bitterness and alcohol'
+      },
+      { 
+        name: 'Water', 
+        measure: 'dash',
+        flavorProfile: 'Neutral',
+        origin: 'Natural source',
+        role: 'Helps dissolve sugar and dilutes the drink slightly'
+      },
+      { 
+        name: 'Orange', 
+        measure: '1 slice',
+        flavorProfile: 'Sweet, citrusy',
+        origin: 'Citrus fruit originally from Asia',
+        role: 'Aromatic garnish that adds subtle citrus notes'
+      },
+      { 
+        name: 'Maraschino cherry', 
+        measure: '1',
+        flavorProfile: 'Sweet, slightly tart',
+        origin: 'Preserved cherries originating from Croatia',
+        role: 'Decorative garnish that adds subtle sweetness'
+      },
     ],
   },
   {
