@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Cocktail, getCocktailById } from '@/services/cocktailApi';
@@ -129,6 +128,17 @@ const CocktailDetailPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div>
+              <h2 className="text-xl font-semibold mb-4">Instructions</h2>
+              <ol className="list-decimal pl-6 space-y-2 leading-relaxed">
+                {cocktail.instructions.split('.').filter(step => step.trim()).map((step, index) => (
+                  <li key={index} className="mb-2">
+                    {step.trim() + '.'}
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div>
               <h2 className="text-xl font-semibold mb-4">Ingredients</h2>
               <div className="bg-secondary/50 p-4 rounded-lg mb-4">
                 <p className="text-sm mb-2">
@@ -157,13 +167,6 @@ const CocktailDetailPage = () => {
                 userIngredients={userIngredients}
                 onToggleIngredient={toggleIngredient}
               />
-            </div>
-            
-            <div>
-              <h2 className="text-xl font-semibold mb-4">Instructions</h2>
-              <p className="leading-relaxed whitespace-pre-line">
-                {cocktail.instructions}
-              </p>
             </div>
           </div>
         </div>
