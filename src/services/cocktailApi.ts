@@ -223,7 +223,7 @@ export const getAllIngredients = async (): Promise<string[]> => {
   return Array.from(ingredientSet).sort();
 };
 
-// Find cocktails that contain ANY of the provided ingredients (OR logic)
+// Find cocktails that contain ALL of the provided ingredients (AND logic)
 export const getCocktailsByIngredients = async (ingredients: string[]): Promise<Cocktail[]> => {
   if (!ingredients.length) return [];
   
@@ -232,20 +232,20 @@ export const getCocktailsByIngredients = async (ingredients: string[]): Promise<
   
   console.log('Searching for ingredients:', normalizedIngredients);
   
-  // Check which cocktails contain at least one of the provided ingredients
+  // Check which cocktails contain ALL of the provided ingredients
   const results = cocktails.filter(cocktail => {
     const cocktailIngredients = cocktail.ingredients.map(ing => ing.name.toLowerCase().trim());
     console.log(`Checking ${cocktail.name}:`, cocktailIngredients);
     
-    // Check if any of the selected ingredients match any ingredient in this cocktail
-    const hasMatch = normalizedIngredients.some(selectedIng => 
+    // Check if ALL selected ingredients are present in this cocktail
+    const hasAllIngredients = normalizedIngredients.every(selectedIng => 
       cocktailIngredients.some(cocktailIng => 
         cocktailIng.includes(selectedIng) || selectedIng.includes(cocktailIng)
       )
     );
     
-    console.log(`${cocktail.name} has match:`, hasMatch);
-    return hasMatch;
+    console.log(`${cocktail.name} has all ingredients:`, hasAllIngredients);
+    return hasAllIngredients;
   });
   
   console.log('Found cocktails:', results.map(c => c.name));
