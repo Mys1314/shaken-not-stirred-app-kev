@@ -223,17 +223,31 @@ export const getAllIngredients = async (): Promise<string[]> => {
   return Array.from(ingredientSet).sort();
 };
 
-// Find cocktails that can be made with the provided ingredients
+// Find cocktails that contain ANY of the provided ingredients (OR logic)
 export const getCocktailsByIngredients = async (ingredients: string[]): Promise<Cocktail[]> => {
-  if (!ingredients.length) return getAllCocktails();
+  if (!ingredients.length) return [];
   
   const cocktails = await getAllCocktails();
-  const normalizedIngredients = ingredients.map(ing => ing.toLowerCase());
+  const normalizedIngredients = ingredients.map(ing => ing.toLowerCase().trim());
   
-  // Check which cocktails can be made with the provided ingredients
-  return cocktails.filter(cocktail => {
-    const requiredIngredients = cocktail.ingredients.map(ing => ing.name.toLowerCase());
-    // Check if all required ingredients are in the provided list
-    return requiredIngredients.every(req => normalizedIngredients.includes(req));
+  console.log('Searching for ingredients:', normalizedIngredients);
+  
+  // Check which cocktails contain at least one of the provided ingredients
+  const results = cocktails.filter(cocktail => {
+    const cocktailIngredients = cocktail.ingredients.map(ing => ing.name.toLowerCase().trim());
+    console.log(`Checking ${cocktail.name}:`, cocktailIngredients);
+    
+    // Check if any of the selected ingredients match any ingredient in this cocktail
+    const hasMatch = normalizedIngredients.some(selectedIng => 
+      cocktailIngredients.some(cocktailIng => 
+        cocktailIng.includes(selectedIng) || selectedIng.includes(cocktailIng)
+      )
+    );
+    
+    console.log(`${cocktail.name} has match:`, hasMatch);
+    return hasMatch;
   });
+  
+  console.log('Found cocktails:', results.map(c => c.name));
+  return results;
 };
